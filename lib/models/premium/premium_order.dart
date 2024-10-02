@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PremiumOrder {
   final String id;
+  final String userId;
   final String userEmail;
   final String transactionId;
   final String paymentMethod;
@@ -9,6 +10,7 @@ class PremiumOrder {
 
   PremiumOrder({
     required this.id,
+    required this.userId,
     required this.userEmail,
     required this.transactionId,
     required this.paymentMethod,
@@ -19,6 +21,7 @@ class PremiumOrder {
     Map data = doc.data() as Map<String, dynamic>;
     return PremiumOrder(
       id: data['id'] ?? '',
+      userId: data['user_id'] ?? '',
       userEmail: data['email'] ?? '',
       transactionId: data['transaction_id'] ?? '',
       paymentMethod: data['payment_method'] ?? '',
@@ -28,6 +31,8 @@ class PremiumOrder {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
+      'user_id': userId,
       'email': userEmail,
       'transaction_id': transactionId,
       'payment_method': paymentMethod,

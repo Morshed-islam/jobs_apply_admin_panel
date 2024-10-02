@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jobs_apply_admin_panel/utils/enums/payment_status.dart';
 import 'package:provider/provider.dart';
@@ -178,12 +179,26 @@ class _PremiumRequestPageState extends State<PremiumRequestPage> {
                                   ),
                                 );
                               }).toList(),
-                              onChanged: (newValue) {
+                              onChanged: (newValue) async {
                                 if (newValue != null) {
                                   context
                                       .read<PremiumOrdersProvider>()
                                       .updatePremiumPaymentStatus(
                                       order.id, newValue);
+
+                                  // Also update the user’s collection based on the selected status
+                                  bool isPremium = newValue == PAYMENT_STATUS.PAID.name;
+                                  String userPremiumStatus = isPremium ? PAYMENT_STATUS.PAID.name : newValue;
+
+                                  // Assuming the user's document ID is the same as order.userId
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(order.userId)
+                                      .update({
+                                    'is_premium': isPremium,
+                                    'premium_payment_status': userPremiumStatus,
+                                  });
+
                                 }
                               },
                             ),
