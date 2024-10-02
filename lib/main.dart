@@ -5,6 +5,7 @@ import 'package:jobs_apply_admin_panel/providers/add_slider_provider/add_slider_
 import 'package:jobs_apply_admin_panel/providers/add_villa_provider/add_villa_provider.dart';
 import 'package:jobs_apply_admin_panel/providers/dashboard/page_provider.dart';
 import 'package:jobs_apply_admin_panel/providers/login_provider/login_provider.dart';
+import 'package:jobs_apply_admin_panel/providers/premium_request/premium_orders_provider.dart';
 import 'package:jobs_apply_admin_panel/screens/add_post/add_job_screen.dart';
 import 'package:jobs_apply_admin_panel/screens/add_slider/add_slider.dart';
 import 'package:jobs_apply_admin_panel/screens/dashboard/starter_screen.dart';
@@ -39,6 +40,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => AuthProvider()), // Use the same instance of AuthProvider
         ChangeNotifierProvider(create: (_) => SliderProvider()),
         ChangeNotifierProvider(create: (_) => AddVillaProvider()),
+        ChangeNotifierProvider(create: (_) => PremiumOrdersProvider()),
       ],
       child: MyApp(),
     ),
